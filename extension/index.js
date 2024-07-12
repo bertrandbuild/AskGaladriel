@@ -1,4 +1,5 @@
 document.getElementById('screenshotButton').addEventListener('click', async () => {
+  console.log('clicked');
   try {
     const stream = await navigator.mediaDevices.getDisplayMedia({ video: { mediaSource: 'window' } });
     const track = stream.getVideoTracks()[0];
@@ -15,6 +16,9 @@ document.getElementById('screenshotButton').addEventListener('click', async () =
     canvas.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       document.getElementById('screenshotImage').src = url;
+      document.getElementById('screenshotImage').style.display = 'block';
+      document.getElementById('prompt').style.display = 'block';
+      document.getElementById('submitPrompt').style.display = 'block';
     });
   } catch (error) {
     console.error('Error taking screenshot:', error);
