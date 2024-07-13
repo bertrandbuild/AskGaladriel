@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import useChatHook from "./Components/Chat/useChatHook";
 import viteLogo from '/vite.svg'
 import './App.css'
+import ChatSingleRequest from './Components/Chat/ChatSingleRequest';
 
 function App() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [imageUrl, setImageUrl] = useState(null);
-  const [prompt, setPrompt] = useState('do a technical analysis');
-  // const [isChatVisible, setIsChatVisible] = useState(false);
-  // const chatProvider = useChatHook();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [prompt, setPrompt] = useState<string>('do a technical analysis');
+  const [isChatVisible, setIsChatVisible] = useState<boolean>(false);
+  const chatProvider = useChatHook();
 
   const takeScreenshot = async () => {
     try {
@@ -79,18 +81,30 @@ function App() {
   }
 
   const submitScreenshotToContract = async () => {
-    console.log('yoo');
-    // try {
-    //   const ipfsHash = await uploadScreenshotToIpfs();
-    //   console.log('ipfsHash', ipfsHash);
-    //   chatProvider.onCreateChat?.(chatProvider.DefaultPersonas[0]);
-    //   // chatProvider.sendMessage(`Task : do a technical analysis of the image.`, ipfsHash);
-    //   chatProvider.sendMessage(`Task : do a technical analysis of the image.`);
-    //   setIsChatVisible(true);
-    //   console.log('chatProvider.chatRef', chatProvider.chatRef);
-    // } catch (e) {
-    //   console.error('Error during submitScreenshotToContract:', e);
-    // } 
+    try {
+      const ipfsHash = await uploadScreenshotToIpfs();
+      console.log('ipfsHash', ipfsHash);
+      chatProvider.onCreateChat?.(chatProvider.DefaultPersonas[0]);
+      // chatProvider.sendMessage(`Task : do a technical analysis of the image.`, ipfsHash);
+      chatProvider.sendMessage(`Task : do a risk scoring search about the dymension team and give a rating from 0 to 10.
+      0 means 0 risks, 10 means the team is known as bad actors.
+      
+      Answer using this json format:
+      {
+        teamRiskScore: number,
+        teamRiskScoreReason: "content",
+        twitterSentimentRiskScore: number,
+        twitterSentimentRiskScoreReason: "content",
+        tokenomicsRiskScore: number,
+        tokenomicsRiskScoreReason: "content",
+        globalRiskScore: number,
+        globalRecommandation: "content",
+      }`);
+      setIsChatVisible(true);
+      console.log('chatProvider.chatRef', chatProvider.chatRef);
+    } catch (e) {
+      console.error('Error during submitScreenshotToContract:', e);
+    } 
   }
 
   return (
@@ -112,14 +126,13 @@ function App() {
           />
           <textarea name="prompt" id="prompt" value={prompt} className='mt-4' onChange={(e) => setPrompt(e.target.value)}></textarea>
           <button id="submitPrompt" className='mt-4' onClick={submitScreenshotToContract}>Ask Galadriel</button>
-          {/* <section>
+          <section>
             {isChatVisible && (
               <div className="text-center mt-8">
-                chat is here: 
                 <ChatSingleRequest ref={chatProvider.chatRef} />
               </div>
             )}
-          </section> */}
+          </section>
         </div>
       )}
     </div>
