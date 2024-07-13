@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
-import { chatGptVisionABI } from './abis/chatgptvision'
-import { ethers, Contract } from 'ethers'
 import './App.css'
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [prompt, setPrompt] = useState('do a technical analysis');
-  const pk = import.meta.env.VITE_WALLET_PK;
-  const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS;
+  // const [isChatVisible, setIsChatVisible] = useState(false);
+  // const chatProvider = useChatHook();
 
   const takeScreenshot = async () => {
     try {
@@ -80,27 +78,20 @@ function App() {
     }
   }
 
-
   const submitScreenshotToContract = async () => {
-    const ipfsHash = await uploadScreenshotToIpfs();
-    // Create a new File object from the blob
-    const provider = new ethers.JsonRpcProvider("https://devnet.galadriel.com");
-    const signer = new ethers.Wallet(pk, provider);
-    const contract = new Contract(
-      contractAddress || "",
-      chatGptVisionABI,
-      signer
-    );
-  
-    try {
-      const tx = await contract.startChat(prompt, [ipfsHash]);
-      await tx.wait();
-      console.log(tx)
-    } catch (error) {
-      console.error('Error interacting with contract:', error);
-    }
+    console.log('yoo');
+    // try {
+    //   const ipfsHash = await uploadScreenshotToIpfs();
+    //   console.log('ipfsHash', ipfsHash);
+    //   chatProvider.onCreateChat?.(chatProvider.DefaultPersonas[0]);
+    //   // chatProvider.sendMessage(`Task : do a technical analysis of the image.`, ipfsHash);
+    //   chatProvider.sendMessage(`Task : do a technical analysis of the image.`);
+    //   setIsChatVisible(true);
+    //   console.log('chatProvider.chatRef', chatProvider.chatRef);
+    // } catch (e) {
+    //   console.error('Error during submitScreenshotToContract:', e);
+    // } 
   }
-
 
   return (
     <div className='flex flex-col items-center justify-center'>
@@ -117,10 +108,18 @@ function App() {
             id="screenshotImage"
             alt="Screenshot will appear here"
             className='mt-4 w-full'
-            src={imageUrl}
+            src={imageUrl || ''}
           />
           <textarea name="prompt" id="prompt" value={prompt} className='mt-4' onChange={(e) => setPrompt(e.target.value)}></textarea>
           <button id="submitPrompt" className='mt-4' onClick={submitScreenshotToContract}>Ask Galadriel</button>
+          {/* <section>
+            {isChatVisible && (
+              <div className="text-center mt-8">
+                chat is here: 
+                <ChatSingleRequest ref={chatProvider.chatRef} />
+              </div>
+            )}
+          </section> */}
         </div>
       )}
     </div>
