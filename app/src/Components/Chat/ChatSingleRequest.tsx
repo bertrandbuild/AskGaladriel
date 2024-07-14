@@ -86,32 +86,13 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
         setIsTxLoading(true);
         try {
           const signer = wallet;
-          const contract = new Contract(
-            CONTRACT_ADDRESS || "",
-            chatGptABI,
-            signer
-          );
-          let receipt;
-          let chatId;
-          if (conversation.current.length === 1) {
-            // Start chat
-            const DEV = true;
-            let tx;
-            if (DEV === true) {
-              tx = await contract.startChat(input);
-            } else {
-              console.log('Sending:', input, ["https://ipfs.io/ipfs/"+ipfsHash]);
-              tx = await contract.startChat(input, ['https://ipfs.io/ipfs/'+ipfsHash]);
-            }
-            receipt = await tx.wait();
-            chatId = getChatId(receipt, contract);
-            if (chatId) {
-              saveChatId?.(chatId);
-            }
-          } else {
-            chatId = currentChatRef?.current?.chatId;
-            const transactionResponse = await contract.addMessage(input, currentChatRef?.current?.chatId);
-            receipt = await transactionResponse.wait();
+          // Personal Agent
+          const contract = new Contract(CONTRACT_ADDRESS || "", chatGptABI, signer);
+          const tx = await contract.startChat(input);
+          const receipt = await tx.wait();
+          const chatId = getChatId(receipt, contract);
+          if (chatId) {
+            saveChatId?.(chatId);
           }
           setIsTxLoading(false);
           if (receipt && receipt.status) {
@@ -135,10 +116,31 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
                   const lastMessage = newMessages.at(-1);
                   if (lastMessage) {
                     if (lastMessage.role === "assistant") {
-                      conversation.current = [
-                        ...conversation.current,
-                        { content: lastMessage.content, role: "assistant" },
-                      ];
+                      console.log("lastMessage.content", lastMessage.content)
+                      // don't display but call the other LLMs
+                      // Verify agent
+                      const contract2 = new Contract("0x9Cc7E153254237f08d743599AABBF13364e47417" || "", chatGptABI, signer);
+                      const tx = await contract2.startChat(`You are an agent verifying the work of other agents. You verify and correct if needed. Always return a valid json, without empty field. Here is the query : ${input} ------ the work done by the other agent is ------ : ${lastMessage.content}`);
+                      const receipt2 = await tx.wait();
+                      const chatId2 = getChatId(receipt2, contract2);
+                      if (chatId2) {
+                        while (true) {
+                          const newMessages: ChatMessage[] = await getNewMessages(contract2, chatId2, conversation.current.length);
+                        if (newMessages) {
+                          const lastMessage = newMessages.at(-1);
+                          if (lastMessage) {
+                            if (lastMessage.role === "assistant") {
+                              console.log("lastMessage.content", lastMessage.content)
+                              conversation.current = [
+                                ...conversation.current,
+                                { content: lastMessage.content, role: "assistant" },
+                              ];
+                              break;
+                            }
+                          }
+                          }
+                        }
+                      }
                       break;
                     } else {
                       // Simple solution to show function results, not ideal
