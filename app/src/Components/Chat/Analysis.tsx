@@ -20,7 +20,7 @@ function isValidJSON(str: string) {
 
 const Analysis = (props: MessageProps) => {
   const { role, content: strContent } = props.message;
-  const [img, setImg] = useState('https://assets.zootools.co/users/PiL0Turm2GbFgCcZ1NYn/assets/zfiCjupkCEd20jc');
+  const [img, setImg] = useState('https://i.ibb.co/7SthJSs/Screenshot-2024-07-14-at-04-25-44.png');
   
   const isUser = role === "user";
   let content = strContent.replace(/\/\/.*$/gm, "");
@@ -38,19 +38,19 @@ const Analysis = (props: MessageProps) => {
             <div className="stats lg:stats-horizontal shadow">
               <div className="stat">
                 <div className="stat-title">Team 🙋‍♂️</div>
-                <div className="stat-value">{json.teamRiskScore}</div>
+                <div className={`stat-value ${json.teamRiskScore < 3 ? 'text-green-500' : json.teamRiskScore > 3 ? 'text-red-500' : ''}`}>{json.teamRiskScore}</div>
                 {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Twitter 🔥</div>
-                <div className="stat-value">{json.twitterSentimentRiskScore}</div>
+                <div className={`stat-value ${json.twitterSentimentRiskScore < 3 ? 'text-green-500' : json.twitterSentimentRiskScore > 3 ? 'text-red-500' : ''}`}>{json.twitterSentimentRiskScore}</div>
                 {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Token 🔗</div>
-                <div className="stat-value">{json.tokenomicsRiskScore}</div>
+                <div className={`stat-value ${json.tokenomicsRiskScore < 3 ? 'text-green-500' : json.tokenomicsRiskScore > 3 ? 'text-red-500' : ''}`}>{json.tokenomicsRiskScore}</div>
                 {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
               </div>
             </div>

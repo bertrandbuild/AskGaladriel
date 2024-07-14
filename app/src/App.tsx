@@ -84,21 +84,28 @@ function App() {
       const ipfsHash = await uploadScreenshotToIpfs();
       console.log('ipfsHash', ipfsHash);
       chatProvider.onCreateChat?.(chatProvider.DefaultPersonas[0]);
-      // chatProvider.sendMessage(`Task : do a technical analysis of the image.`, ipfsHash);
-      chatProvider.sendMessage(`Task : do a risk scoring search about the dymension team and give a rating from 0 to 10.
-      0 means 0 risks, 10 means the team is known as bad actors.
-      
-      Answer using this json format:
-      {
-        teamRiskScore: number,
-        teamRiskScoreReason: "content",
-        twitterSentimentRiskScore: number,
-        twitterSentimentRiskScoreReason: "content",
-        tokenomicsRiskScore: number,
-        tokenomicsRiskScoreReason: "content",
-        globalRiskScore: number,
-        globalRecommandation: "content",
-      }`);
+      const jsonFormatRequested = `
+        Answer using this json format:
+          {
+            teamRiskScore: number,
+            teamRiskScoreReason: "content",
+            twitterSentimentRiskScore: number,
+            twitterSentimentRiskScoreReason: "content",
+            tokenomicsRiskScore: number,
+            tokenomicsRiskScoreReason: "content",
+            globalRiskScore: number,
+            globalRecommandation: "content",
+          }
+      `
+      const DEV = true;
+      if (DEV === true) {
+        chatProvider.sendMessage(`Task : do a risk scoring search about the dymension team and give a rating from 0 to 10.
+        0 means 0 risks, 10 means the team is known as bad actors.
+        
+        ${jsonFormatRequested}`);
+      } else {
+        chatProvider.sendMessage(`Task : do a technical analysis of the image.`, ipfsHash);
+      }
       setIsChatVisible(true);
       console.log('chatProvider.chatRef', chatProvider.chatRef);
     } catch (e) {

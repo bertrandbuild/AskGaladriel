@@ -95,8 +95,14 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
           let chatId;
           if (conversation.current.length === 1) {
             // Start chat
-            // const tx = await contract.startChat(input, [ipfsHash]);
-            const tx = await contract.startChat(input);
+            const DEV = true;
+            let tx;
+            if (DEV === true) {
+              tx = await contract.startChat(input);
+            } else {
+              console.log('Sending:', input, ["https://ipfs.io/ipfs/"+ipfsHash]);
+              tx = await contract.startChat(input, ['https://ipfs.io/ipfs/'+ipfsHash]);
+            }
             receipt = await tx.wait();
             chatId = getChatId(receipt, contract);
             if (chatId) {

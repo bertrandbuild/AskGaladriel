@@ -189,10 +189,10 @@ const useChatHook = () => {
     }
   }
 
-  const sendMessage = (message: string) => {
+  const sendMessage = (message: string, ipfsHash?: string) => {
     if (!chatRef.current) return;
     // @ts-expect-error flagged by ts but working
-    return chatRef.current.sendMessage(message)
+    return chatRef.current.sendMessage(message, ipfsHash)
   }
 
   const saveChatId = (chatId: number) => {
