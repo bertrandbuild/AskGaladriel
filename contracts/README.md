@@ -26,17 +26,12 @@ $ forge test
 forge create --rpc-url https://devnet.galadriel.com/ --gas-price 1000000000 --gas-limit 3000000 --private-key <your_private_key> src/OpenAiChatGptVision.sol:OpenAiChatGptVision --constructor-args 0x0352b37E5680E324E804B5A6e1AddF0A064E201D
 ```
 
-// Agent 1 - personal agent - 0x4EA414CfF46C371c3F1fDf57A66CC9E3cBB883DD
-// input : You are a personal asset manager agent. To evaluate a token, define a research plan of 5 web searches including at least teams, tokenomics and price. 
-Selected token : dymension - DYM
-
+// Agent 1 - personal agent - 0xC75d84cefbb9efcf5396e4976Fd77D2991d2DbaF
+// Agent 2 - data gathering agent - 0xb40E715b6a7Dd34d58002BF092884Ae04AA0133e
+// Agent 3 - rating agent - 0x2AA8B6C72AEa3c26e68bb4Af1dcF3b681b9104b6
+// Agent 4 - verify work agent - 0x5b11aa370de48C46000E30c6B3Cb1D3c1a084dB4
 ```shell
 forge create --rpc-url https://devnet.galadriel.com/ --gas-price 1000000000 --gas-limit 3000000 --private-key <your_private_key> src/PersonalAgent.sol:PersonalAgent --constructor-args 0x0352b37E5680E324E804B5A6e1AddF0A064E201D
-```
-
-// Agent 3 - verify work agent - 0x88013633e360d5782dCE646Dd6562E8560730A75
-```shell
-forge create --rpc-url https://devnet.galadriel.com/ --gas-price 1000000000 --gas-limit 3000000 --private-key <your_private_key> src/VerifyWork.sol:VerifyWork --constructor-args 0x0352b37E5680E324E804B5A6e1AddF0A064E201D
 ```
 
 ### Generate ABIs
