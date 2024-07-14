@@ -63,7 +63,7 @@ const Analysis = (props: MessageProps) => {
                   />
                 </div>
               </div>
-              <div className="chat-header mt-8">
+              <div className="chat-header">
                 Galadriel
               </div>
               <div className="chat-bubble prose break-normal text-left">{json.globalRecommandation.slice(0, 200) + '...'}</div>

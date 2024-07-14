@@ -114,7 +114,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col w-[400px] h-[550px] bg-background rounded-lg shadow-lg p-4">
+    <div className="flex flex-col w-[400px] h-[580px] bg-background rounded-lg shadow-lg p-4">
       <header className="flex items-center justify-between px-4 py-3 border-b">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold">Magic Token Scoring 🪄</h2>
@@ -145,7 +145,7 @@ function App() {
             )}
             <section>
             {isChatVisible && (
-              <div className="text-center mt-8">
+              <div className="text-center mt-2">
                 <ChatSingleRequest ref={chatProvider.chatRef} />
               </div>
             )}

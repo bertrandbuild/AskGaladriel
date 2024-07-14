@@ -263,7 +263,7 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
 
   return (
     <div
-      className="flex flex-col h-full relative gap-3 mt-6"
+      className="flex flex-col h-full relative gap-3 mt-4"
       style={{ backgroundColor: "var(--background-color)" }}
     >
       <div className="flex-1 overflow-y-auto" style={{ height: "100%" }}>
