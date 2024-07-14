@@ -38,19 +38,19 @@ const Analysis = (props: MessageProps) => {
             <div className="stats lg:stats-horizontal shadow">
               <div className="stat">
                 <div className="stat-title">Team 🙋‍♂️</div>
-                <div className={`stat-value ${json.teamRiskScore < 3 ? 'text-green-500' : json.teamRiskScore > 3 ? 'text-red-500' : ''}`}>{json.teamRiskScore}</div>
+                <div className={`stat-value ${json.teamRiskScore < 3 ? 'text-green-500' : json.teamRiskScore > 7 ? 'text-red-500' : ''}`}>{json.teamRiskScore}</div>
                 {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Twitter 🔥</div>
-                <div className={`stat-value ${json.twitterSentimentRiskScore < 3 ? 'text-green-500' : json.twitterSentimentRiskScore > 3 ? 'text-red-500' : ''}`}>{json.twitterSentimentRiskScore}</div>
+                <div className={`stat-value ${json.twitterSentimentRiskScore < 3 ? 'text-green-500' : json.twitterSentimentRiskScore > 7 ? 'text-red-500' : ''}`}>{json.twitterSentimentRiskScore}</div>
                 {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
               </div>
 
               <div className="stat">
                 <div className="stat-title">Token 🔗</div>
-                <div className={`stat-value ${json.tokenomicsRiskScore < 3 ? 'text-green-500' : json.tokenomicsRiskScore > 3 ? 'text-red-500' : ''}`}>{json.tokenomicsRiskScore}</div>
+                <div className={`stat-value ${json.tokenomicsRiskScore < 3 ? 'text-green-500' : json.tokenomicsRiskScore > 7 ? 'text-red-500' : ''}`}>{json.tokenomicsRiskScore}</div>
                 {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
               </div>
             </div>
@@ -64,7 +64,7 @@ const Analysis = (props: MessageProps) => {
                 </div>
               </div>
               <div className="chat-header">
-                Galadriel
+                Catadalf
               </div>
               <div className="chat-bubble prose break-normal text-left">{json.globalRecommandation.slice(0, 200) + '...'}</div>
               <div className="chat-footer opacity-50">Analysis delivered</div>
