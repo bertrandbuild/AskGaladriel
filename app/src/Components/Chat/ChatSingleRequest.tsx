@@ -23,7 +23,6 @@ const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
 import "./index.scss";
 import useChatHook from "./useChatHook";
 import Analysis from "./Analysis";
-import Message from "./Message";
 
 const HTML_REGULAR =
   /<(?!img|table|\/table|thead|\/thead|tbody|\/tbody|tr|\/tr|td|\/td|th|\/th|br|\/br).*?>/gi;
@@ -282,7 +281,7 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
         {isLoading && (
           conversation.current.length < 3 ? (
             <div className="pt-4">
-              Ok... let me see what you have there<span className="loading loading-dots loading-md ml-2" style={{ marginBottom: "-10px"}}></span>
+              Searching for the truth... <span className="loading loading-dots loading-md ml-2" style={{ marginBottom: "-10px"}}></span>
             </div>
           ) : (
             <div className="pt-4">
