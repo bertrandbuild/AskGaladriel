@@ -263,12 +263,12 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
       <div className="flex-1 overflow-y-auto" style={{ height: "100%" }}>
         {requestHast && (
           <div>
-            Transaction hash:
-            <a className="underline pl-2"
+            hash:
+            <a className="underline pl-2 text-xs"
               href={`https://explorer.galadriel.com/tx/${requestHast}`}
               target="_blank" rel="noopener noreferrer"
             >
-              {requestHast}
+              {requestHast.slice(0, 20) + '...'}
             </a>
           </div>
         )}
@@ -281,7 +281,7 @@ const ChatSingleRequest = (props: ChatProps, ref: React.RefObject<ChatGPInstance
         {isLoading && (
           conversation.current.length < 3 ? (
             <div className="pt-4">
-              Searching for the truth... <span className="loading loading-dots loading-md ml-2" style={{ marginBottom: "-10px"}}></span>
+              Searching for the truth <span className="loading loading-dots loading-md ml-2" style={{ marginBottom: "-10px"}}></span>
             </div>
           ) : (
             <div className="pt-4">

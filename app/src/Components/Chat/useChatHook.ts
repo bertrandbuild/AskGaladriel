@@ -9,7 +9,7 @@ import {Chat, ChatMessage, Persona} from './interface'
 
 export const DefaultPersonas: Persona[] = [
   {
-    id: 'degen',
+    id: '0',
     role: 'system',
     name: 'The Trader Assistant',
     prompt:

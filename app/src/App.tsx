@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import useChatHook from "./Components/Chat/useChatHook";
-import viteLogo from '/vite.svg'
 import './App.css'
 import ChatSingleRequest from './Components/Chat/ChatSingleRequest';
-import PopUp from './Components/popup';
 
 function App() {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -109,13 +107,13 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col w-[400px] h-[500px] bg-background rounded-lg shadow-lg p-4">
+    <div className="flex flex-col w-[400px] h-[550px] bg-background rounded-lg shadow-lg p-4">
       <header className="flex items-center justify-between px-4 py-3 border-b">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-semibold">Title</h2>
+          <h2 className="text-lg font-semibold">Magic Token Scoring 🪄</h2>
         </div>
       </header>
-      <div className="flex-1">
+      <div className="flex-1 overflow-x-hidden">
         <div className="flex h-full">
           <div className="flex flex-col flex-1">
             {!isVisible && (
@@ -124,7 +122,7 @@ function App() {
               </div>
             )}
 
-            {isVisible && (
+            {isVisible && !isChatVisible && (
               <div className='flex flex-col items-center justify-center'>
                 <img
                   id="screenshotImage"
@@ -132,19 +130,19 @@ function App() {
                   className='mt-4 w-full'
                   src={imageUrl || ''}
                 />
-                <div className="border-t p-3">
-                  <textarea name="prompt" id="prompt" value={prompt} className='mt-4 textarea textarea-bordered' onChange={(e) => setPrompt(e.target.value)}></textarea>
+                <div className="border-t p-3 w-full">
+                  <textarea name="prompt" id="prompt" value={prompt} className='mt-4 textarea textarea-bordered w-full' onChange={(e) => setPrompt(e.target.value)}></textarea>
                 </div>
-                <button id="submitPrompt" className='btn mt-4' onClick={submitScreenshotToContract}>Ask Galadriel</button>
-                <section>
-                  {isChatVisible && (
-                    <div className="text-center mt-8">
-                      <ChatSingleRequest ref={chatProvider.chatRef} />
-                    </div>
-                  )}
-                </section>
+                <button id="submitPrompt" className='btn mt-4' onClick={submitScreenshotToContract}>Ask Galadriel 🧝‍♀️</button>
               </div>
             )}
+            <section>
+            {isChatVisible && (
+              <div className="text-center mt-8">
+                <ChatSingleRequest ref={chatProvider.chatRef} />
+              </div>
+            )}
+            </section>
           </div>
         </div>
       </div>
